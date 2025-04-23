@@ -7,13 +7,14 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      POSTGRES_DB: account_service
     restart: unless-stopped
     networks:
       - database-network
 
   app:
+    depends_on:
+      - postgres
     restart: unless-stopped
     container_name: account-service
     build:
