@@ -1,0 +1,256 @@
+syntax = "proto3";
+
+package account.v1;
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/Kkmikaze/account-service/proto/account/v1;accountv1";
+
+enum PostStatus {
+  Draft = 0;
+  Publish = 1;
+  Trash = 2;
+}
+
+message BadRequest {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"400\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"BAD REQUEST\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Bad Request\""
+  }];
+
+  map<string, string> errors = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"field\": \"the field is required\"}"
+  }];
+}
+
+message Unauthorized {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"401\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"UNAUTHORIZED\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Unauthorized\""
+  }];
+}
+
+message Forbidden {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"403\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"FORBIDDEN\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"You does not have correct access.\""
+  }];
+}
+
+message NotFound {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"404\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"NOT FOUND\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Item not found.\""
+  }];
+}
+
+message Conflict {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"419\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"CONFLICT\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Item already exists.\""
+  }];
+}
+
+message UnprocessableEntity {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"422\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"UNPROCESSABLE ENTITY\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Unprocessable entity\""
+  }];
+}
+
+message InternalServerError {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"500\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"INTERNAL SERVER ERROR\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Internal Server Error\""
+  }];
+}
+
+message CommonResponse {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"200\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"OK\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Message of common response.\""
+  }];
+}
+
+message Param {
+  string account_number = 1;
+}
+
+message HealthCheckResponse {
+  string message = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Service Running\""
+  }];
+}
+
+message CreateAccountRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Create Account Request",
+      description: "Create Account Request",
+      required: [
+        "name",
+        "citizen_id",
+        "phone"
+      ]
+    }
+  };
+
+  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"John Doe\""
+  }];
+  string citizen_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"1234567890123456\""
+  }];
+  string phone = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"+62123456789\""
+    description: "\"E.164 numbers format [+][country code][subscriber number including area code]\""
+  }];
+}
+
+message CreateAccountResponse {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"200\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"OK\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Get balance success.\""
+  }];
+
+  message Data {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"John Doe\""
+    }];
+    string citizen_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"1234567890123456\""
+    }];
+    string phone = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"+62123456789\""
+      description: "\"E.164 numbers format [+][country code][subscriber number including area code]\""
+    }];
+    string account_number = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"1234567890123456\""
+    }];
+    double balance = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"100000\""
+    }];
+  }
+  Data data = 4;
+}
+
+message GetBalanceByAccountNumberResponse {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"200\""
+  }];
+  string status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"OK\""
+  }];
+  string message = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"Get balance success.\""
+  }];
+
+  message Data {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"John Doe\""
+    }];
+    string citizen_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"1234567890123456\""
+    }];
+    string phone = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"+62123456789\""
+      description: "\"E.164 numbers format [+][country code][subscriber number including area code]\""
+    }];
+    string account_number = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"1234567890123456\""
+    }];
+    double balance = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"100000\""
+    }];
+  }
+  Data data = 4;
+}
+
+message SavingBalanceRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Saving Balance Request",
+      description: "Saving Balance Request",
+      required: ["account_number", "body"]
+    }
+  };
+
+  string account_number = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"12345678901234\""
+  }];
+
+  message BodyRequest {
+    double amount = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"10000\""
+    }];
+  }
+
+  BodyRequest body = 2;
+}
+
+message WithdrawBalanceRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Withdraw Balance Request",
+      description: "Withdraw Balance Request",
+      required: ["account_number", "body"]
+    }
+  };
+
+  string account_number = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "\"12345678901234\""
+  }];
+
+  message BodyRequest {
+    double amount = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "\"10000\""
+    }];
+  }
+
+  BodyRequest body = 2;
+}

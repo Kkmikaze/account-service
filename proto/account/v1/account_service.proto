@@ -1,0 +1,186 @@
+syntax = "proto3";
+
+package account.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "account/v1/account_message.proto";
+
+option go_package = "github.com/Kkmikaze/account-service/proto/account/v1;accountv1";
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Account Service",
+    version: "v1.0.0"
+  },
+  responses: {
+    key: "400",
+    value: {
+      description: 'Bad Request',
+      schema: {
+        json_schema: {ref: ".account.v1.BadRequest"}
+      }
+    }
+  },
+  responses: {
+    key: "401",
+    value: {
+      description: 'Unauthorized',
+      schema: {
+        json_schema: {ref: ".account.v1.Unauthorized"}
+      }
+    }
+  },
+  responses: {
+    key: "403",
+    value: {
+      description: 'Forbidden',
+      schema: {
+        json_schema: {ref: ".account.v1.Forbidden"}
+      }
+    }
+  },
+  responses: {
+    key: "404",
+    value: {
+      description: 'Not Found',
+      schema: {
+        json_schema: {ref: ".account.v1.NotFound"}
+      }
+    }
+  },
+  responses: {
+    key: "419",
+    value: {
+      description: 'Conflict',
+      schema: {
+        json_schema: {ref: ".account.v1.Conflict"}
+      }
+    }
+  },
+  responses: {
+    key: "422",
+    value: {
+      description: 'Unprocessable Entity',
+      schema: {
+        json_schema: {ref: ".account.v1.UnprocessableEntity"}
+      }
+    }
+  },
+  responses: {
+    key: "500",
+    value: {
+      description: 'Internal Server Error',
+      schema: {
+        json_schema: {ref: ".account.v1.InternalServerError"}
+      }
+    }
+  }
+};
+
+service AccountService {
+  rpc HealthzCheck (google.protobuf.Empty) returns (HealthCheckResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/account-service/healthz",
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      responses: {
+        key: "200",
+        value: {
+          description: "OK";
+          schema: {
+            json_schema: {ref: ".account.v1.HealthCheckResponse"}
+          }
+        }
+      };
+    };
+  }
+
+  rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/account-service/accounts",
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: ["Account"]
+      summary: "Create Account"
+      description: "This API for create/register new account.",
+      responses: {
+        key: "200",
+        value: {
+          description: "OK";
+          schema: {
+            json_schema: {ref: ".account.v1.CreateAccountResponse"}
+          }
+        }
+      };
+    };
+  }
+
+  rpc GetBalanceByAccountNumber (Param) returns (GetBalanceByAccountNumberResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/account-service/balances/{account_number}",
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: ["Balance"]
+      summary: "Get Balance By Account Number"
+      description: "This API for get balance by account number",
+      responses: {
+        key: "200",
+        value: {
+          description: "OK";
+          schema: {
+            json_schema: {ref: ".account.v1.GetBalanceByAccountNumberResponse"}
+          }
+        }
+      };
+    };
+  }
+
+  rpc SavingBalance (SavingBalanceRequest) returns (CommonResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/account-service/saving/{account_number}",
+      body: "body"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: ["Balance"]
+      summary: "Saving Balance"
+      description: "This API for saving balance by account number.",
+      responses: {
+        key: "200",
+        value: {
+          description: "OK";
+          schema: {
+            json_schema: {ref: ".account.v1.CommonResponse"}
+          }
+        }
+      };
+    };
+  }
+
+  rpc WithdrawBalance (WithdrawBalanceRequest) returns (CommonResponse) {
+    option (google.api.http) = {
+      put: "/api/v1/account-service/withdraw/{account_number}",
+      body: "body"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: ["Balance"]
+      summary: "Withdraw Balance"
+      description: "This API for withdraw balance by account number.",
+      responses: {
+        key: "200",
+        value: {
+          description: "OK";
+          schema: {
+            json_schema: {ref: ".account.v1.CommonResponse"}
+          }
+        }
+      };
+    };
+  }
+}

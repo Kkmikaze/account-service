@@ -1,0 +1,732 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Account Service",
+    "version": "v1.0.0"
+  },
+  "tags": [
+    {
+      "name": "AccountService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/account-service/accounts": {
+      "post": {
+        "summary": "Create Account",
+        "description": "This API for create/register new account.",
+        "operationId": "AccountService_CreateAccount",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1CreateAccountResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/v1BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/v1Unauthorized"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/v1Forbidden"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/v1NotFound"
+            }
+          },
+          "419": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/v1Conflict"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/v1UnprocessableEntity"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/v1InternalServerError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "Create Account Request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/api/v1/account-service/balances/{accountNumber}": {
+      "get": {
+        "summary": "Get Balance By Account Number",
+        "description": "This API for get balance by account number",
+        "operationId": "AccountService_GetBalanceByAccountNumber",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1GetBalanceByAccountNumberResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/v1BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/v1Unauthorized"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/v1Forbidden"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/v1NotFound"
+            }
+          },
+          "419": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/v1Conflict"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/v1UnprocessableEntity"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/v1InternalServerError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Balance"
+        ]
+      }
+    },
+    "/api/v1/account-service/healthz": {
+      "get": {
+        "operationId": "AccountService_HealthzCheck",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1HealthCheckResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/v1BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/v1Unauthorized"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/v1Forbidden"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/v1NotFound"
+            }
+          },
+          "419": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/v1Conflict"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/v1UnprocessableEntity"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/v1InternalServerError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "AccountService"
+        ]
+      }
+    },
+    "/api/v1/account-service/saving/{accountNumber}": {
+      "put": {
+        "summary": "Saving Balance",
+        "description": "This API for saving balance by account number.",
+        "operationId": "AccountService_SavingBalance",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1CommonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/v1BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/v1Unauthorized"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/v1Forbidden"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/v1NotFound"
+            }
+          },
+          "419": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/v1Conflict"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/v1UnprocessableEntity"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/v1InternalServerError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SavingBalanceRequestBodyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Balance"
+        ]
+      }
+    },
+    "/api/v1/account-service/withdraw/{accountNumber}": {
+      "put": {
+        "summary": "Withdraw Balance",
+        "description": "This API for withdraw balance by account number.",
+        "operationId": "AccountService_WithdrawBalance",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/v1CommonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/v1BadRequest"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/v1Unauthorized"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/v1Forbidden"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/v1NotFound"
+            }
+          },
+          "419": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/v1Conflict"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/v1UnprocessableEntity"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/v1InternalServerError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1WithdrawBalanceRequestBodyRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Balance"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1BadRequest": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "400"
+        },
+        "status": {
+          "type": "string",
+          "example": "BAD REQUEST"
+        },
+        "message": {
+          "type": "string",
+          "example": "Bad Request"
+        },
+        "errors": {
+          "type": "object",
+          "example": {
+            "field": "the field is required"
+          },
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "v1CommonResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "200"
+        },
+        "status": {
+          "type": "string",
+          "example": "OK"
+        },
+        "message": {
+          "type": "string",
+          "example": "Message of common response."
+        }
+      }
+    },
+    "v1Conflict": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "419"
+        },
+        "status": {
+          "type": "string",
+          "example": "CONFLICT"
+        },
+        "message": {
+          "type": "string",
+          "example": "Item already exists."
+        }
+      }
+    },
+    "v1CreateAccountRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "citizenId": {
+          "type": "string",
+          "example": "1234567890123456"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+62123456789",
+          "description": "\"E.164 numbers format [+][country code][subscriber number including area code]\""
+        }
+      },
+      "description": "Create Account Request",
+      "title": "Create Account Request",
+      "required": [
+        "name",
+        "citizenId",
+        "phone"
+      ]
+    },
+    "v1CreateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "200"
+        },
+        "status": {
+          "type": "string",
+          "example": "OK"
+        },
+        "message": {
+          "type": "string",
+          "example": "Get balance success."
+        },
+        "data": {
+          "$ref": "#/definitions/v1CreateAccountResponseData"
+        }
+      }
+    },
+    "v1CreateAccountResponseData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "citizenId": {
+          "type": "string",
+          "example": "1234567890123456"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+62123456789",
+          "description": "\"E.164 numbers format [+][country code][subscriber number including area code]\""
+        },
+        "accountNumber": {
+          "type": "string",
+          "example": "1234567890123456"
+        },
+        "balance": {
+          "type": "number",
+          "format": "double",
+          "example": "100000"
+        }
+      }
+    },
+    "v1Forbidden": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "403"
+        },
+        "status": {
+          "type": "string",
+          "example": "FORBIDDEN"
+        },
+        "message": {
+          "type": "string",
+          "example": "You does not have correct access."
+        }
+      }
+    },
+    "v1GetBalanceByAccountNumberResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "200"
+        },
+        "status": {
+          "type": "string",
+          "example": "OK"
+        },
+        "message": {
+          "type": "string",
+          "example": "Get balance success."
+        },
+        "data": {
+          "$ref": "#/definitions/v1GetBalanceByAccountNumberResponseData"
+        }
+      }
+    },
+    "v1GetBalanceByAccountNumberResponseData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "citizenId": {
+          "type": "string",
+          "example": "1234567890123456"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+62123456789",
+          "description": "\"E.164 numbers format [+][country code][subscriber number including area code]\""
+        },
+        "accountNumber": {
+          "type": "string",
+          "example": "1234567890123456"
+        },
+        "balance": {
+          "type": "number",
+          "format": "double",
+          "example": "100000"
+        }
+      }
+    },
+    "v1HealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Service Running"
+        }
+      }
+    },
+    "v1InternalServerError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "500"
+        },
+        "status": {
+          "type": "string",
+          "example": "INTERNAL SERVER ERROR"
+        },
+        "message": {
+          "type": "string",
+          "example": "Internal Server Error"
+        }
+      }
+    },
+    "v1NotFound": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "404"
+        },
+        "status": {
+          "type": "string",
+          "example": "NOT FOUND"
+        },
+        "message": {
+          "type": "string",
+          "example": "Item not found."
+        }
+      }
+    },
+    "v1SavingBalanceRequestBodyRequest": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "example": "10000"
+        }
+      }
+    },
+    "v1Unauthorized": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "401"
+        },
+        "status": {
+          "type": "string",
+          "example": "UNAUTHORIZED"
+        },
+        "message": {
+          "type": "string",
+          "example": "Unauthorized"
+        }
+      }
+    },
+    "v1UnprocessableEntity": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "example": "422"
+        },
+        "status": {
+          "type": "string",
+          "example": "UNPROCESSABLE ENTITY"
+        },
+        "message": {
+          "type": "string",
+          "example": "Unprocessable entity"
+        }
+      }
+    },
+    "v1WithdrawBalanceRequestBodyRequest": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "example": "10000"
+        }
+      }
+    }
+  }
+}
